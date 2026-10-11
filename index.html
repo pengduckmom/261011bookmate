@@ -5,370 +5,238 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BOOK MATE | 스마트 도서 반납 매니저</title>
+
+<
 <style>
-:root{
-  --primary:#4f46e5;
-  --bg:#f5f6fb;
-  --text:#1f2937;
-  --line:#e5e7eb;
-  --red:#dc2626;
-  --green:#059669;
-  --orange:#d97706;
-}
+:root{--p:#4f46e5;--bg:#f5f6fb;--text:#1f2937;--line:#e5e7eb;--green:#059669;--red:#dc2626;--orange:#d97706}
 *{box-sizing:border-box}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,"Malgun Gothic",sans-serif;
-  line-height:1.6;
-}
-header{
-  background:linear-gradient(120deg,#3730a3,#6366f1);
-  color:white;
-  padding:32px 20px;
-}
-header>div{max-width:1100px;margin:auto}
-h1{margin:0;font-size:32px}
-header p{margin:5px 0;color:#e0e7ff}
-main{
-  max-width:1100px;
-  margin:auto;
-  padding:24px 16px 60px;
-}
-.card,.stat{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:22px;
-  box-shadow:0 4px 16px #00000008;
-}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,"Malgun Gothic",sans-serif;line-height:1.6}
+.container{max-width:1100px;margin:auto;padding:0 16px}
+.hero{background:linear-gradient(120deg,#3730a3,#6366f1);color:white;padding:30px 0}
+.hero h1{margin:0;font-size:32px}
+.hero p{margin:4px 0;color:#e0e7ff}
+main.container{padding-top:24px;padding-bottom:50px}
+.card,.stat{background:white;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 4px 16px #00000008}
 .card{margin-bottom:20px}
 h2{font-size:20px;margin:0 0 16px}
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-  margin-bottom:20px;
-}
-.stat small{color:#6b7280}
-.stat strong{
-  display:block;
-  font-size:30px;
-  margin-top:6px;
-}
-.grid{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  gap:12px;
-}
-label{
-  display:block;
-  font-size:14px;
-  font-weight:bold;
-  margin-bottom:6px;
-}
-input,select{
-  width:100%;
-  padding:11px;
-  border:1px solid #d1d5db;
-  border-radius:9px;
-  font:inherit;
-  background:white;
-  min-width:0;
-}
-button{
-  border:0;
-  border-radius:9px;
-  padding:10px 15px;
-  font:inherit;
-  font-weight:bold;
-  cursor:pointer;
-}
-button:hover{filter:brightness(.94)}
-button:focus-visible,
-input:focus-visible,
-select:focus-visible{
-  outline:3px solid #a5b4fc;
-  outline-offset:2px;
-}
-.primary{background:var(--primary);color:white}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.stat span{color:#6b7280;font-size:14px}
+.stat strong{display:block;font-size:30px}
+.form-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+.field label{display:block;font-weight:bold;font-size:14px;margin-bottom:6px}
+input,select{width:100%;padding:11px;border:1px solid #d1d5db;border-radius:9px;font:inherit;min-width:0;background:white}
+.actions,.toolbar{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.btn{border:0;border-radius:9px;padding:10px 15px;font:inherit;font-weight:bold;cursor:pointer}
+.btn:hover{filter:brightness(.94)}
+.btn:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #a5b4fc;outline-offset:2px}
+.primary{background:var(--p);color:white}
 .secondary{background:#eef2ff;color:#3730a3}
 .success{background:var(--green);color:white}
 .danger{background:#fef2f2;color:#b91c1c}
 .gray{background:#f3f4f6;color:#374151}
-.small{padding:7px 10px;font-size:12px}
-.actions,.toolbar{
-  display:flex;
-  flex-wrap:wrap;
-  gap:9px;
-  margin-top:16px;
-}
+.small{font-size:12px;padding:7px 10px}
+.section-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .toolbar input{flex:1;min-width:160px}
 .toolbar select{width:auto}
-.book{
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:16px;
-  margin-top:12px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:14px;
-  flex-wrap:wrap;
-}
-.book.overdue{
-  border-left:5px solid var(--red);
-  background:#fffafa;
-}
+.book{border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.book-info{flex:1;min-width:190px}
+.book-title{font-size:17px;font-weight:bold;overflow-wrap:anywhere}
+.book.overdue{border-left:5px solid var(--red);background:#fffafa}
 .book.soon{border-left:5px solid var(--orange)}
 .book.done{border-left:5px solid var(--green)}
-.book-info{flex:1;min-width:190px}
-.book-title{
-  font-size:17px;
-  font-weight:bold;
-  overflow-wrap:anywhere;
-}
-.meta{
-  color:#6b7280;
-  font-size:13px;
-  margin-top:5px;
-}
-.tag{
-  display:inline-block;
-  padding:3px 10px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:bold;
-  margin-bottom:6px;
-  background:#eef2ff;
-  color:#3730a3;
-}
-.tag.overdue{background:#fee2e2;color:#b91c1c}
+.meta,.note{font-size:13px;color:#6b7280}
+.tag{display:inline-block;background:#eef2ff;color:#3730a3;border-radius:20px;padding:3px 10px;font-size:12px;font-weight:bold;margin-bottom:6px}
+.tag.overdue{background:#fee2e2;color:#991b1b}
 .tag.soon{background:#fef3c7;color:#92400e}
 .tag.done{background:#d1fae5;color:#065f46}
-.alert{
-  padding:14px 17px;
-  border-radius:12px;
-  margin-bottom:12px;
-  background:#fffbeb;
-  border:1px solid #fde68a;
-  color:#92400e;
-}
-.alert.overdue{
-  background:#fef2f2;
-  border-color:#fecaca;
-  color:#991b1b;
-}
-.game{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-}
-.progress{
-  height:14px;
-  background:#e5e7eb;
-  border-radius:20px;
-  overflow:hidden;
-  margin:14px 0;
-}
-.progress>div{
-  height:100%;
-  background:linear-gradient(90deg,#6366f1,#10b981);
-  transition:width .2s;
-}
-.stamps,.badges{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-.stamp{
-  width:48px;
-  height:48px;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  background:#f3f4f6;
-  border:2px dashed #d1d5db;
-  opacity:.5;
-  font-size:24px;
-}
-.stamp.on{
-  background:#fef3c7;
-  border:2px solid #f59e0b;
-  opacity:1;
-}
-.badge{
-  flex:1;
-  min-width:95px;
-  text-align:center;
-  padding:12px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:#fafafa;
-}
-.badge.locked{
-  opacity:.35;
-  filter:grayscale(1);
-}
-.badge b{display:block;font-size:13px}
-.empty{
-  text-align:center;
-  padding:30px;
-  color:#6b7280;
-  background:#fafafa;
-  border-radius:12px;
-  margin-top:15px;
-}
-.note{font-size:13px;color:#6b7280}
-footer{
-  text-align:center;
-  color:#6b7280;
-  font-size:12px;
-  margin-top:30px;
-}
+.alert{padding:14px 17px;border-radius:12px;margin-bottom:12px;background:#fffbeb;border:1px solid #fde68a;color:#92400e}
+.alert.overdue{background:#fef2f2;border-color:#fecaca;color:#991b1b}
+.game-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.stamp-count{font-size:30px;font-weight:bold}
+.progress{height:14px;background:#e5e7eb;border-radius:20px;overflow:hidden;margin:14px 0}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#6366f1,#10b981);transition:width .2s}
+.stamps{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.stamp{width:48px;height:48px;display:grid;place-items:center;border-radius:50%;background:#f3f4f6;border:2px dashed #d1d5db;opacity:.5;font-size:24px}
+.stamp.on{background:#fef3c7;border:2px solid #f59e0b;opacity:1}
+.badges{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
+.badge{display:flex;flex-direction:column;align-items:center;gap:4px;background:#eef2ff;border:2px solid #c7d2fe;border-radius:15px;padding:20px 10px;text-align:center}
+.badge.locked{background:#f3f4f6;border-color:#e5e7eb;opacity:.65}
+.badge-icon{font-size:38px}
+.badge strong{font-size:14px}
+.badge span,.badge small{font-size:12px;color:#6b7280}
+.badge:not(.locked) small{color:#4338ca;font-weight:bold}
+.empty{text-align:center;padding:30px;color:#6b7280;background:#fafafa;border-radius:12px;margin-top:15px}
+footer{text-align:center;color:#6b7280;font-size:12px;margin-top:30px}
+[hidden]{display:none!important}
 @media(max-width:750px){
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .grid,.game{grid-template-columns:1fr}
+.stats{grid-template-columns:repeat(2,1fr)}
+.form-grid,.game-grid{grid-template-columns:1fr}
 }
 @media(max-width:450px){
-  .card,.stat{padding:16px}
-  h1{font-size:27px}
-  .toolbar select{width:100%}
+.card,.stat{padding:16px}
+.hero h1{font-size:27px}
+.toolbar select{width:100%}
 }
 </style>
+>
+
 </head>
 <body>
-
-<header>
-<div>
-<h1>📚 BOOK MATE</h1>
-<p>스마트 도서 반납 매니저</p>
-<p>책과의 약속을 지키는 즐거운 습관!</p>
-</div>
+<header class="hero">
+  <div class="container">
+    <h1>📚 BOOK MATE</h1>
+    <p>스마트 도서 반납 매니저</p>
+    <p>책과의 약속을 지키는 즐거운 습관!</p>
+  </div>
 </header>
 
-<main>
-<section id="alerts" aria-live="polite"></section>
+<main class="container">
+  <section id="alerts" aria-live="polite"></section>
 
-<section class="stats" aria-label="반납 통계">
-<div class="stat">
-<small>📚 현재 대출 중</small>
-<strong id="activeCount">0</strong>
-</div>
-<div class="stat">
-<small>✅ 반납 완료</small>
-<strong id="completedCount">0</strong>
-</div>
-<div class="stat">
-<small>⚠️ 연체 도서</small>
-<strong id="overdueCount">0</strong>
-</div>
-<div class="stat">
-<small>🎯 정시 반납률</small>
-<strong id="returnRate">0%</strong>
-</div>
-</section>
+  <section class="stats">
+    <div class="stat">
+      <span>📚 현재 대출 중</span>
+      <strong id="activeCount">0</strong>
+    </div>
+    <div class="stat">
+      <span>✅ 반납 완료</span>
+      <strong id="completedCount">0</strong>
+    </div>
+    <div class="stat">
+      <span>⚠️ 연체 도서</span>
+      <strong id="overdueCount">0</strong>
+    </div>
+    <div class="stat">
+      <span>🎯 정시 반납률</span>
+      <strong id="returnRate">0%</strong>
+    </div>
+  </section>
 
-<section class="card">
-<h2 id="formTitle">➕ 새 도서 대출 등록</h2>
-<form id="bookForm">
-<div class="grid">
-<div>
-<label for="bookName">도서명</label>
-<input id="bookName" maxlength="150"
-placeholder="예: 어린 왕자" required>
-</div>
-<div>
-<label for="borrowDate">대출일</label>
-<input id="borrowDate" type="date" required>
-</div>
-<div>
-<label for="dueDate">반납 예정일</label>
-<input id="dueDate" type="date" required>
-</div>
-</div>
-<div class="actions">
-<button class="primary" id="saveBtn" type="submit">
-📘 대출 등록하기
-</button>
-<button class="gray" id="cancelBtn"
-type="button" hidden>수정 취소</button>
-<button class="secondary" id="sampleBtn"
-type="button">🧪 예시 데이터 추가</button>
-</div>
-</form>
-</section>
+  <section class="card">
+    <h2 id="formTitle">➕ 새 도서 대출 등록</h2>
+    <form id="bookForm">
+      <div class="form-grid">
+        <div class="field">
+          <label for="bookName">도서명</label>
+          <input id="bookName" maxlength="150"
+            placeholder="예: 어린 왕자" required>
+        </div>
+        <div class="field">
+          <label for="borrowDate">대출일</label>
+          <input id="borrowDate" type="date" required>
+        </div>
+        <div class="field">
+          <label for="dueDate">반납 예정일</label>
+          <input id="dueDate" type="date" required>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="saveBtn" type="submit">
+          📘 대출 등록하기
+        </button>
+        <button class="btn gray" id="cancelBtn"
+          type="button" hidden>수정 취소</button>
+        <button class="btn secondary" id="sampleBtn"
+          type="button">🧪 예시 데이터 추가</button>
+      </div>
+    </form>
+  </section>
 
-<section class="card">
-<h2>📋 나의 도서 대출 기록
-<span class="note" id="totalLabel"></span></h2>
-<div class="toolbar">
-<input id="searchInput" type="search"
-placeholder="🔍 도서명 검색"
-aria-label="도서명 검색">
-<select id="filterSelect" aria-label="기록 필터">
-<option value="all">전체 기록</option>
-<option value="active">대출 중</option>
-<option value="soon">반납 임박</option>
-<option value="overdue">연체 도서</option>
-<option value="completed">반납 완료</option>
-</select>
-<select id="sortSelect" aria-label="정렬">
-<option value="due">반납 예정일순</option>
-<option value="recent">최근 등록순</option>
-<option value="name">도서명순</option>
-</select>
-</div>
-<div id="bookList"></div>
-</section>
+  <section class="card">
+    <div class="section-heading">
+      <h2>📋 나의 도서 대출 기록</h2>
+      <span class="note" id="totalLabel">전체 0권</span>
+    </div>
+    <div class="toolbar">
+      <input id="searchInput" type="search"
+        placeholder="🔍 도서명 검색">
+      <select id="filterSelect">
+        <option value="all">전체 기록</option>
+        <option value="active">대출 중</option>
+        <option value="soon">반납 임박</option>
+        <option value="overdue">연체 도서</option>
+        <option value="completed">반납 완료</option>
+      </select>
+      <select id="sortSelect">
+        <option value="due">반납 예정일순</option>
+        <option value="recent">최근 등록순</option>
+        <option value="name">도서명순</option>
+      </select>
+    </div>
+    <div id="bookList"></div>
+  </section>
 
-<div class="game">
-<section class="card">
-<h2>🏅 나의 반납 스탬프</h2>
-<p class="note">
-기한 내 반납할 때마다 스탬프 1개!
-5개마다 배지를 획득합니다.
-</p>
-<h2 id="stampCount">0개</h2>
-<div class="progress">
-<div id="stampProgress" style="width:0%"></div>
-</div>
-<p class="note" id="stampMessage"></p>
-<div class="stamps" id="stampArea"></div>
-</section>
+  <div class="game-grid">
+    <section class="card">
+      <h2>🏅 나의 반납 스탬프</h2>
+      <p class="note">
+        기한 내 반납할 때마다 스탬프 1개!
+        5개마다 배지를 획득합니다.
+      </p>
+      <div class="stamp-count" id="stampCount">0개</div>
+      <div class="progress">
+        <div id="stampProgress" class="progress-fill"></div>
+      </div>
+      <p class="note" id="stampMessage"></p>
+      <div class="stamps" id="stampArea"></div>
+    </section>
 
-<section class="card">
-<h2>🏆 나의 배지 컬렉션</h2>
-<p class="note">
-정시 반납 횟수에 따라 배지가 해제됩니다.
-</p>
-<div class="badges" id="badgeArea"></div>
-</section>
-</div>
+    <section class="card">
+      <h2>🏆 나의 배지 컬렉션</h2>
+      <p class="note">
+        정시 반납 횟수에 따라 배지가 해제됩니다.
+      </p>
+      <div class="badges" id="badgeArea">
+        <div class="badge locked">
+          <div class="badge-icon">🥉</div>
+          <strong>반납 새싹</strong>
+          <span>정시 반납 5회</span>
+          <small>🔒 미획득</small>
+        </div>
+        <div class="badge locked">
+          <div class="badge-icon">🥈</div>
+          <strong>반납 달인</strong>
+          <span>정시 반납 10회</span>
+          <small>🔒 미획득</small>
+        </div>
+        <div class="badge locked">
+          <div class="badge-icon">🥇</div>
+          <strong>반납 마스터</strong>
+          <span>정시 반납 20회</span>
+          <small>🔒 미획득</small>
+        </div>
+        <div class="badge locked">
+          <div class="badge-icon">🏆</div>
+          <strong>도서관 영웅</strong>
+          <span>정시 반납 30회</span>
+          <small>🔒 미획득</small>
+        </div>
+      </div>
+    </section>
+  </div>
 
-<section class="card">
-<h2>💾 데이터 관리</h2>
-<p class="note">
-기록은 현재 브라우저에 자동 저장됩니다.
-다른 기기와 자동 동기화되지 않습니다.
-</p>
-<div class="actions">
-<button class="secondary" id="exportBtn">
-📥 CSV 기록 내보내기
-</button>
-<button class="danger" id="clearBtn">
-🗑️ 전체 기록 삭제
-</button>
-</div>
-</section>
+  <section class="card">
+    <h2>💾 데이터 관리</h2>
+    <p class="note">
+      기록은 브라우저에 자동 저장됩니다.
+      다른 기기와 자동 동기화되지 않습니다.
+    </p>
+    <div class="actions">
+      <button class="btn secondary" id="exportBtn">
+        📥 CSV 기록 내보내기
+      </button>
+      <button class="btn danger" id="clearBtn">
+        🗑️ 전체 기록 삭제
+      </button>
+    </div>
+  </section>
 
-<footer>
-BOOK MATE © 2026 | 학교문제해결 프로젝트
-</footer>
+  <footer>
+    BOOK MATE © 2026 | 학교문제해결 프로젝트
+  </footer>
 </main>
 
+<
 <script>
 "use strict";
 
@@ -377,11 +245,553 @@ const $ = id => document.getElementById(id);
 let books = loadBooks();
 let editingId = null;
 
+const badges = [
+  { count: 5, emoji: "🥉", name: "반납 새싹" },
+  { count: 10, emoji: "🥈", name: "반납 달인" },
+  { count: 20, emoji: "🥇", name: "반납 마스터" },
+  { count: 30, emoji: "🏆", name: "도서관 영웅" }
+];
+
+// 1. 데이터 저장
 function loadBooks() {
   try {
     const data = JSON.parse(localStorage.getItem(KEY) || "[]");
     return Array.isArray(data) ? data : [];
-  } catch (error) {
-    console.error("데이터 읽기 오류:", error);
+  } catch (e) {
+    console.error(e);
     return [];
- 
+  }
+}
+
+function save() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(books));
+    return true;
+  } catch (e) {
+    alert("저장에 실패했습니다.");
+    return false;
+  }
+}
+
+// 2. 날짜 계산
+function today() {
+  const d = new Date();
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
+}
+
+function dateUTC(s) {
+  const [y,m,d] = s.split("-").map(Number);
+  return Date.UTC(y,m-1,d);
+}
+
+function diff(a,b) {
+  return Math.round((dateUTC(a)-dateUTC(b))/86400000);
+}
+
+function shift(s,n) {
+  return new Date(dateUTC(s)+n*86400000)
+    .toISOString().slice(0,10);
+}
+
+function makeId() {
+  if (window.crypto && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return Date.now()+"-"+Math.random().toString(36).slice(2);
+}
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g,c=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[c]);
+}
+
+function completed(b) {
+  return b.status === "completed";
+}
+
+function onTime(b) {
+  return completed(b) &&
+    Boolean(b.returnDate) &&
+    b.returnDate <= b.dueDate;
+}
+
+function remaining(b) {
+  return diff(b.dueDate,today());
+}
+
+function statusOf(b) {
+  if (completed(b)) {
+    return {
+      cls:"done",
+      label:onTime(b)?"✅ 정시 반납 완료":"↩️ 연체 후 반납"
+    };
+  }
+
+  const n = remaining(b);
+
+  if(n<0) return {cls:"overdue",label:`⚠️ ${-n}일 연체`};
+  if(n===0) return {cls:"soon",label:"🔔 오늘 반납일"};
+  if(n<=3) return {cls:"soon",label:`🔔 D-${n} 반납 임박`};
+
+  return {cls:"normal",label:`📖 D-${n}`};
+}
+
+// 3. 통계
+function renderStats() {
+  const active = books.filter(b=>!completed(b));
+  const done = books.filter(completed);
+  const punctual = done.filter(onTime).length;
+
+  $("activeCount").textContent = active.length;
+  $("completedCount").textContent = done.length;
+  $("overdueCount").textContent =
+    active.filter(b=>remaining(b)<0).length;
+
+  $("returnRate").textContent =
+    (done.length ? Math.round(punctual/done.length*100) : 0)+"%";
+
+  $("totalLabel").textContent = `전체 ${books.length}권`;
+}
+
+// 4. 반납 알림
+function renderAlerts() {
+  const active = books.filter(b=>!completed(b));
+  const overdue = active.filter(b=>remaining(b)<0).length;
+  const soon = active.filter(b=>
+    remaining(b)>=0 && remaining(b)<=3
+  ).length;
+
+  const area = $("alerts");
+  area.replaceChildren();
+
+  if(overdue) {
+    const div = document.createElement("div");
+    div.className = "alert overdue";
+    div.textContent =
+      `🚨 연체 도서 ${overdue}권이 있습니다. 반납을 서둘러 주세요!`;
+    area.appendChild(div);
+  }
+
+  if(soon) {
+    const div = document.createElement("div");
+    div.className = "alert";
+    div.textContent =
+      `🔔 3일 이내 반납할 도서 ${soon}권이 있습니다.`;
+    area.appendChild(div);
+  }
+}
+
+// 5. 검색 및 필터
+function filteredBooks() {
+  const query = $("searchInput").value.trim().toLowerCase();
+  const filter = $("filterSelect").value;
+  const sort = $("sortSelect").value;
+
+  const list = books.filter(b=>{
+    if(!b.name.toLowerCase().includes(query)) return false;
+    if(filter==="active") return !completed(b);
+    if(filter==="completed") return completed(b);
+    if(filter==="overdue")
+      return !completed(b) && remaining(b)<0;
+    if(filter==="soon")
+      return !completed(b) &&
+        remaining(b)>=0 && remaining(b)<=3;
+    return true;
+  });
+
+  list.sort((a,b)=>{
+    if(sort==="name") return a.name.localeCompare(b.name,"ko");
+    if(sort==="recent")
+      return (b.createdAt||0)-(a.createdAt||0);
+    return a.dueDate.localeCompare(b.dueDate);
+  });
+
+  return list;
+}
+
+// 6. 대출 목록 표시
+function renderBooks() {
+  const list = filteredBooks();
+  const area = $("bookList");
+
+  if(!list.length) {
+    area.innerHTML =
+      '<div class="empty">📭 표시할 도서가 없습니다.</div>';
+    return;
+  }
+
+  area.innerHTML = list.map(b=>{
+    const s = statusOf(b);
+    const dates = completed(b)
+      ? `대출일: ${b.borrowDate} · 예정일: ${b.dueDate} · 실제 반납일: ${b.returnDate}`
+      : `대출일: ${b.borrowDate} · 반납 예정일: ${b.dueDate}`;
+
+    return `
+      <article class="book ${s.cls}">
+        <div class="book-info">
+          <span class="tag ${s.cls}">${s.label}</span>
+          <div class="book-title">${escapeHTML(b.name)}</div>
+          <div class="meta">${dates}</div>
+        </div>
+        <div class="actions">
+          ${completed(b) ? "" : `
+            <button class="btn success small"
+              data-action="return" data-id="${b.id}">
+              반납 완료
+            </button>
+            <button class="btn secondary small"
+              data-action="edit" data-id="${b.id}">
+              수정
+            </button>
+          `}
+          <button class="btn danger small"
+            data-action="delete" data-id="${b.id}">
+            삭제
+          </button>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+// 7. 스탬프와 배지
+function renderGame() {
+  const count = books.filter(onTime).length;
+  const progress = count%5;
+
+  $("stampCount").textContent = `⭐ 누적 ${count}개`;
+  $("stampProgress").style.width =
+    `${progress/5*100}%`;
+
+  $("stampMessage").textContent =
+    `다음 스탬프 보상까지 ${5-progress}개`;
+
+  $("stampArea").innerHTML =
+    Array.from({length:5},(_,i)=>`
+      <div class="stamp ${i<progress?"on":""}">
+        ${i<progress?"⭐":"☆"}
+      </div>
+    `).join("");
+
+  renderBadges(count);
+}
+
+function renderBadges(count) {
+  const area = $("badgeArea");
+
+  area.innerHTML = badges.map(b=>{
+    const unlocked = count>=b.count;
+
+    return `
+      <div class="badge ${unlocked?"":"locked"}">
+        <div class="badge-icon">${b.emoji}</div>
+        <strong>${b.name}</strong>
+        <span>정시 반납 ${b.count}회</span>
+        <small>
+          ${unlocked?"✅ 획득 완료":"🔒 미획득"}
+        </small>
+      </div>
+    `;
+  }).join("");
+}
+
+// 8. 전체 화면 갱신
+function renderAll() {
+  renderStats();
+  renderAlerts();
+  renderBooks();
+  renderGame();
+}
+
+// 9. 입력 초기화
+function resetForm() {
+  editingId = null;
+  $("bookForm").reset();
+  $("borrowDate").value = today();
+  $("dueDate").value = shift(today(),14);
+  $("formTitle").textContent = "➕ 새 도서 대출 등록";
+  $("saveBtn").textContent = "📘 대출 등록하기";
+  $("cancelBtn").hidden = true;
+}
+
+// 10. 도서 등록 및 수정
+$("bookForm").addEventListener("submit",e=>{
+  e.preventDefault();
+
+  const name = $("bookName").value.trim();
+  const borrowDate = $("borrowDate").value;
+  const dueDate = $("dueDate").value;
+
+  if(!name || !borrowDate || !dueDate) {
+    alert("모든 항목을 입력해 주세요.");
+    return;
+  }
+
+  if(dueDate<borrowDate) {
+    alert("반납 예정일은 대출일보다 빠를 수 없습니다.");
+    return;
+  }
+
+  const previous = books.slice();
+
+  if(editingId) {
+    const book = books.find(b=>b.id===editingId);
+    if(!book) return;
+
+    book.name = name;
+    book.borrowDate = borrowDate;
+    book.dueDate = dueDate;
+  } else {
+    books.push({
+      id:makeId(),
+      name,
+      borrowDate,
+      dueDate,
+      status:"active",
+      returnDate:null,
+      createdAt:Date.now()
+    });
+  }
+
+  if(!save()) {
+    books = previous;
+    return;
+  }
+
+  resetForm();
+  renderAll();
+});
+
+// 11. 수정 취소
+$("cancelBtn").addEventListener("click",resetForm);
+
+// 12. 반납, 수정, 삭제 버튼
+$("bookList").addEventListener("click",e=>{
+  const button = e.target.closest("button[data-action]");
+  if(!button) return;
+
+  const id = button.dataset.id;
+  const action = button.dataset.action;
+  const book = books.find(b=>b.id===id);
+
+  if(!book) return;
+
+  if(action==="edit") {
+    if(completed(book)) return;
+
+    editingId = id;
+    $("bookName").value = book.name;
+    $("borrowDate").value = book.borrowDate;
+    $("dueDate").value = book.dueDate;
+    $("formTitle").textContent = "✏️ 도서 대출 정보 수정";
+    $("saveBtn").textContent = "수정 내용 저장";
+    $("cancelBtn").hidden = false;
+
+    $("bookForm").scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+    return;
+  }
+
+  if(action==="return") {
+    if(completed(book)) return;
+
+    const input = prompt(
+      "실제 반납일을 입력하세요. (YYYY-MM-DD)",
+      today()
+    );
+
+    if(input===null) return;
+
+    const date = input.trim();
+
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(date) ||
+      Number.isNaN(dateUTC(date))) {
+      alert("날짜를 YYYY-MM-DD 형식으로 입력해 주세요.");
+      return;
+    }
+
+    if(new Date(dateUTC(date)).toISOString().slice(0,10)!==date) {
+      alert("올바른 날짜를 입력해 주세요.");
+      return;
+    }
+
+    if(date<book.borrowDate || date>today()) {
+      alert("반납일은 대출일 이후, 오늘 이전이어야 합니다.");
+      return;
+    }
+
+    const previous = books.slice();
+    const index = books.findIndex(b=>b.id===id);
+
+    books[index] = {
+      ...book,
+      status:"completed",
+      returnDate:date
+    };
+
+    if(!save()) {
+      books = previous;
+      return;
+    }
+
+    if(onTime(books[index])) {
+      alert("🎉 정시 반납 성공! 스탬프 1개를 획득했습니다.");
+    } else {
+      alert("반납이 완료되었습니다.");
+    }
+
+    if(editingId===id) resetForm();
+    renderAll();
+    return;
+  }
+
+  if(action==="delete") {
+    if(!confirm(`"${book.name}" 기록을 삭제하시겠습니까?`))
+      return;
+
+    const previous = books.slice();
+    books = books.filter(b=>b.id!==id);
+
+    if(!save()) {
+      books = previous;
+      return;
+    }
+
+    if(editingId===id) resetForm();
+    renderAll();
+  }
+});
+
+// 13. 검색, 필터, 정렬
+$("searchInput").addEventListener("input",renderBooks);
+$("filterSelect").addEventListener("change",renderBooks);
+$("sortSelect").addEventListener("change",renderBooks);
+
+// 14. 예시 데이터
+$("sampleBtn").addEventListener("click",()=>{
+  const t = today();
+  const samples = [
+    {name:"어린 왕자",due:shift(t,2),done:false},
+    {name:"데미안",due:shift(t,-3),done:false},
+    {name:"모모",due:shift(t,7),done:false},
+    {name:"아몬드",due:shift(t,-2),done:true},
+    {name:"불편한 편의점",due:shift(t,-5),done:true}
+  ];
+
+  if(!confirm("테스트용 도서 5권을 추가하시겠습니까?"))
+    return;
+
+  const previous = books.slice();
+
+  samples.forEach((s,i)=>{
+    books.push({
+      id:makeId(),
+      name:s.name,
+      borrowDate:shift(t,-14),
+      dueDate:s.due,
+      status:s.done?"completed":"active",
+      returnDate:s.done?shift(s.due,-1):null,
+      createdAt:Date.now()+i
+    });
+  });
+
+  if(!save()) {
+    books = previous;
+    return;
+  }
+
+  renderAll();
+});
+
+// 15. CSV 다운로드
+$("exportBtn").addEventListener("click",()=>{
+  if(!books.length) {
+    alert("내보낼 기록이 없습니다.");
+    return;
+  }
+
+  const rows = [
+    ["도서명","대출일","반납예정일","상태",
+     "실제반납일","정시반납여부"],
+    ...books.map(b=>[
+      b.name,
+      b.borrowDate,
+      b.dueDate,
+      completed(b)?"반납 완료":"대출 중",
+      b.returnDate||"",
+      completed(b)?(onTime(b)?"정시":"연체"):""
+    ])
+  ];
+
+  const csv = rows.map(row=>
+    row.map(v=>{
+      let text = String(v);
+      if(/^[\s]*[=+\-@]/.test(text)) text = "'"+text;
+      return '"'+text.replace(/"/g,'""')+'"';
+    }).join(",")
+  ).join("\r\n");
+
+  const blob = new Blob(["\uFEFF"+csv],{
+    type:"text/csv;charset=utf-8"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `BOOK_MATE_${today()}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+
+// 16. 전체 기록 삭제
+$("clearBtn").addEventListener("click",()=>{
+  if(!books.length) {
+    alert("삭제할 기록이 없습니다.");
+    return;
+  }
+
+  if(!confirm(
+    "전체 기록을 삭제하시겠습니까?\n스탬프와 배지도 초기화됩니다."
+  )) return;
+
+  const previous = books.slice();
+  books = [];
+
+  if(!save()) {
+    books = previous;
+    return;
+  }
+
+  resetForm();
+  renderAll();
+});
+
+// 17. 초기 실행
+resetForm();
+renderAll();
+
+// 날짜가 바뀌었을 때 D-day 갱신
+document.addEventListener("visibilitychange",()=>{
+  if(!document.hidden) renderAll();
+});
+
+window.addEventListener("focus",renderAll);
+
+</script>
+>
+
+</body>
+</html>
