@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOOK MATE | 스마트 도서 반납 매니저</title>
+<style>
+:root{
+  --primary:#4f46e5;
+  --bg:#f5f6fb;
+  --text:#1f2937;
+  --line:#e5e7eb;
+  --red:#dc2626;
+  --green:#059669;
+  --orange:#d97706;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,"Malgun Gothic",sans-serif;
+  line-height:1.6;
+}
+header{
+  background:linear-gradient(120deg,#3730a3,#6366f1);
+  color:white;
+  padding:32px 20px;
+}
+header>div{max-width:1100px;margin:auto}
+h1{margin:0;font-size:32px}
+header p{margin:5px 0;color:#e0e7ff}
+main{
+  max-width:1100px;
+  margin:auto;
+  padding:24px 16px 60px;
+}
+.card,.stat{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:22px;
+  box-shadow:0 4px 16px #00000008;
+}
+.card{margin-bottom:20px}
+h2{font-size:20px;margin:0 0 16px}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:20px;
+}
+.stat small{color:#6b7280}
+.stat strong{
+  display:block;
+  font-size:30px;
+  margin-top:6px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:12px;
+}
+label{
+  display:block;
+  font-size:14px;
+  font-weight:bold;
+  margin-bottom:6px;
+}
+input,select{
+  width:100%;
+  padding:11px;
+  border:1px solid #d1d5db;
+  border-radius:9px;
+  font:inherit;
+  background:white;
+  min-width:0;
+}
+button{
+  border:0;
+  border-radius:9px;
+  padding:10px 15px;
+  font:inherit;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:hover{filter:brightness(.94)}
+button:focus-visible,
+input:focus-visible,
+select:focus-visible{
+  outline:3px solid #a5b4fc;
+  outline-offset:2px;
+}
+.primary{background:var(--primary);color:white}
+.secondary{background:#eef2ff;color:#3730a3}
+.success{background:var(--green);color:white}
+.danger{background:#fef2f2;color:#b91c1c}
+.gray{background:#f3f4f6;color:#374151}
+.small{padding:7px 10px;font-size:12px}
+.actions,.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:16px;
+}
+.toolbar input{flex:1;min-width:160px}
+.toolbar select{width:auto}
+.book{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px;
+  margin-top:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.book.overdue{
+  border-left:5px solid var(--red);
+  background:#fffafa;
+}
+.book.soon{border-left:5px solid var(--orange)}
+.book.done{border-left:5px solid var(--green)}
+.book-info{flex:1;min-width:190px}
+.book-title{
+  font-size:17px;
+  font-weight:bold;
+  overflow-wrap:anywhere;
+}
+.meta{
+  color:#6b7280;
+  font-size:13px;
+  margin-top:5px;
+}
+.tag{
+  display:inline-block;
+  padding:3px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:6px;
+  background:#eef2ff;
+  color:#3730a3;
+}
+.tag.overdue{background:#fee2e2;color:#b91c1c}
+.tag.soon{background:#fef3c7;color:#92400e}
+.tag.done{background:#d1fae5;color:#065f46}
+.alert{
+  padding:14px 17px;
+  border-radius:12px;
+  margin-bottom:12px;
+  background:#fffbeb;
+  border:1px solid #fde68a;
+  color:#92400e;
+}
+.alert.overdue{
+  background:#fef2f2;
+  border-color:#fecaca;
+  color:#991b1b;
+}
+.game{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+.progress{
+  height:14px;
+  background:#e5e7eb;
+  border-radius:20px;
+  overflow:hidden;
+  margin:14px 0;
+}
+.progress>div{
+  height:100%;
+  background:linear-gradient(90deg,#6366f1,#10b981);
+  transition:width .2s;
+}
+.stamps,.badges{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+.stamp{
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#f3f4f6;
+  border:2px dashed #d1d5db;
+  opacity:.5;
+  font-size:24px;
+}
+.stamp.on{
+  background:#fef3c7;
+  border:2px solid #f59e0b;
+  opacity:1;
+}
+.badge{
+  flex:1;
+  min-width:95px;
+  text-align:center;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fafafa;
+}
+.badge.locked{
+  opacity:.35;
+  filter:grayscale(1);
+}
+.badge b{display:block;font-size:13px}
+.empty{
+  text-align:center;
+  padding:30px;
+  color:#6b7280;
+  background:#fafafa;
+  border-radius:12px;
+  margin-top:15px;
+}
+.note{font-size:13px;color:#6b7280}
+footer{
+  text-align:center;
+  color:#6b7280;
+  font-size:12px;
+  margin-top:30px;
+}
+@media(max-width:750px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .grid,.game{grid-template-columns:1fr}
+}
+@media(max-width:450px){
+  .card,.stat{padding:16px}
+  h1{font-size:27px}
+  .toolbar select{width:100%}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div>
+<h1>📚 BOOK MATE</h1>
+<p>스마트 도서 반납 매니저</p>
+<p>책과의 약속을 지키는 즐거운 습관!</p>
+</div>
+</header>
+
+<main>
+<section id="alerts" aria-live="polite"></section>
+
+<section class="stats" aria-label="반납 통계">
+<div class="stat">
+<small>📚 현재 대출 중</small>
+<strong id="activeCount">0</strong>
+</div>
+<div class="stat">
+<small>✅ 반납 완료</small>
+<strong id="completedCount">0</strong>
+</div>
+<div class="stat">
+<small>⚠️ 연체 도서</small>
+<strong id="overdueCount">0</strong>
+</div>
+<div class="stat">
+<small>🎯 정시 반납률</small>
+<strong id="returnRate">0%</strong>
+</div>
+</section>
+
+<section class="card">
+<h2 id="formTitle">➕ 새 도서 대출 등록</h2>
+<form id="bookForm">
+<div class="grid">
+<div>
+<label for="bookName">도서명</label>
+<input id="bookName" maxlength="150"
+placeholder="예: 어린 왕자" required>
+</div>
+<div>
+<label for="borrowDate">대출일</label>
+<input id="borrowDate" type="date" required>
+</div>
+<div>
+<label for="dueDate">반납 예정일</label>
+<input id="dueDate" type="date" required>
+</div>
+</div>
+<div class="actions">
+<button class="primary" id="saveBtn" type="submit">
+📘 대출 등록하기
+</button>
+<button class="gray" id="cancelBtn"
+type="button" hidden>수정 취소</button>
+<button class="secondary" id="sampleBtn"
+type="button">🧪 예시 데이터 추가</button>
+</div>
+</form>
+</section>
+
+<section class="card">
+<h2>📋 나의 도서 대출 기록
+<span class="note" id="totalLabel"></span></h2>
+<div class="toolbar">
+<input id="searchInput" type="search"
+placeholder="🔍 도서명 검색"
+aria-label="도서명 검색">
+<select id="filterSelect" aria-label="기록 필터">
+<option value="all">전체 기록</option>
+<option value="active">대출 중</option>
+<option value="soon">반납 임박</option>
+<option value="overdue">연체 도서</option>
+<option value="completed">반납 완료</option>
+</select>
+<select id="sortSelect" aria-label="정렬">
+<option value="due">반납 예정일순</option>
+<option value="recent">최근 등록순</option>
+<option value="name">도서명순</option>
+</select>
+</div>
+<div id="bookList"></div>
+</section>
+
+<div class="game">
+<section class="card">
+<h2>🏅 나의 반납 스탬프</h2>
+<p class="note">
+기한 내 반납할 때마다 스탬프 1개!
+5개마다 배지를 획득합니다.
+</p>
+<h2 id="stampCount">0개</h2>
+<div class="progress">
+<div id="stampProgress" style="width:0%"></div>
+</div>
+<p class="note" id="stampMessage"></p>
+<div class="stamps" id="stampArea"></div>
+</section>
+
+<section class="card">
+<h2>🏆 나의 배지 컬렉션</h2>
+<p class="note">
+정시 반납 횟수에 따라 배지가 해제됩니다.
+</p>
+<div class="badges" id="badgeArea"></div>
+</section>
+</div>
+
+<section class="card">
+<h2>💾 데이터 관리</h2>
+<p class="note">
+기록은 현재 브라우저에 자동 저장됩니다.
+다른 기기와 자동 동기화되지 않습니다.
+</p>
+<div class="actions">
+<button class="secondary" id="exportBtn">
+📥 CSV 기록 내보내기
+</button>
+<button class="danger" id="clearBtn">
+🗑️ 전체 기록 삭제
+</button>
+</div>
+</section>
+
+<footer>
+BOOK MATE © 2026 | 학교문제해결 프로젝트
+</footer>
+</main>
+
+<script>
+"use strict";
+
+const KEY = "bookmate_records_v1";
+const $ = id => document.getElementById(id);
+let books = loadBooks();
+let editingId = null;
+
+function loadBooks() {
+  try {
+    const data = JSON.parse(localStorage.getItem(KEY) || "[]");
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error("데이터 읽기 오류:", error);
+    return [];
+ 
